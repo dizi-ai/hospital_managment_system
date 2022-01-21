@@ -202,7 +202,7 @@ def MakeAppointments(request):
             appointmentdate = request.POST['appointmentdate']
             appointmenttime = request.POST['appointmenttime']
             symptoms = request.POST['symptoms']
-            date = datetime.strptime('2022-01-15','%Y-%m-%d')
+            date = datetime.strptime('2022-01-22','%Y-%m-%d')
             if not datetime.strptime(appointmentdate, '%Y-%m-%d') < date:
                 if len(Appointment.objects.filter(appointmentdate=appointmentdate, appointmenttime=appointmenttime))==0:
                     try:
@@ -272,7 +272,7 @@ def appointmentresults(request):
         app_res = request.POST['idofappres']
         room_id = request.POST['roomid']
         app = AppointmentResult.objects.get(id=app_res)
-        date = datetime.strptime('2022-01-15','%Y-%m-%d')
+        date = datetime.strptime('2022-01-22','%Y-%m-%d')
         if not datetime.strptime(date_b, '%Y-%m-%d') < date and room_id!='не выбрано':
             if len(HospitalStay.objects.filter(patient=Patient.objects.get(id=app.appointment.patientid.id),
                                            date_end__isnull=True)) == 0:
@@ -306,7 +306,7 @@ def setshift(request):
         worker = Receptionist.objects.get(id=request.POST['idres'])
         date_b = request.POST['date']
         date_e = datetime.strptime(date_b, '%Y-%m-%d').date() + timedelta(days=1)
-        date = datetime.strptime('2022-01-15','%Y-%m-%d')
+        date = datetime.strptime('2022-01-22','%Y-%m-%d')
         if not datetime.strptime(date_b, '%Y-%m-%d') < date:
             OnShift.objects.create(worker=worker, date_beg=date_b, date_end=date_e)
     return render(request, 'setshift.html', context={'recs': Receptionist.objects.all(), 'receps': receptionists})
