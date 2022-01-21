@@ -1,0 +1,18 @@
+{% include 'include.html' %}
+{% include 'navbar.html' %}
+{% block body %}
+<section class="general-area-home">
+        <h1>Записывайтесь на прием!</h1>
+        <h3>для записи необходимо зарегистрироваться (инструкции ниже)</h3>
+        <div class="row" id="row1">
+            <div class="col offset-lg-0">
+                <h2>тыкайте туда -><a class="btn btn-primary" href="{% url 'createaccountpage' %}">Создать аккаунт</a> </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-center">Тыкайте сюды (чуть-чуть правее),<a data-bs-hover-animate="flash" href="{% url 'aboutpage' %}"> чтобы узнать больше.</a></p>
+            </div>
+        </div>
+</section>
+{% endblock %}

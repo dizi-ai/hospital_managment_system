@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'patient_nav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <div class="row register-form">
+                    <div class="col-md-8 offset-md-2">
+                        <form class="custom-form" method="post">
+                            {% csrf_token %}
+                            <h1 style="margin-top: 0px;">Записаться на прием</h1>
+                            <div class="form-row form-group">
+                                <div class="col-sm-4 label-column">
+                                    <label class="col-form-label" for="name-input-field">Имя доктора и его отдел</label>
+                                </div>
+                                <div class="col-sm-6 input-column">
+                                    <select class="form-control" name="doctorid">
+                                            {% for d in alldoctors %}
+                                            <option value="{{d.id}}">{{d.name}}----->{{d.specialization}}</option>
+                                            {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-sm-4 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Дата</label></div>
+                                <div class="col-sm-6 input-column">
+                                    <input class="form-control" type="date" name="appointmentdate" min="14.01.2022" required="">
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-sm-4 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Время</label></div>
+                                <div class="col-sm-6 input-column">
+                                    <input class="form-control" type="time" placeholder="enter time" name="appointmenttime" required="">
+                                </div>
+                            </div>
+                            <div class="form-row form-group">
+                                <div class="col-sm-4 label-column"><label class="col-form-label" for="repeat-pawssword-input-field">Симптомы</label></div>
+                                <div class="col-sm-6 input-column">
+                                    <textarea class="form-control" name="symptoms" required=""></textarea>
+                                </div>
+                            </div>
+                        <button class="btn btn-light submit-button" type="submit">Записаться</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-top-wrapper"><span class="scroll-top-inner"><i class="fa fa-arrow-circle-up"></i></span></div>
+    {% ifequal error "no" %}
+        <script type="text/javascript">
+            alert('Запись на прием проведена успешно')
+            window.location = ('{% url 'makeappointments' %}')
+        </script>
+    {% endifequal%}
+
+    {% ifequal error "yes" %}
+        <script type="text/javascript">
+            alert('Не удалось записаться на прием, выбрано забронированное время')
+            window.location = ('{% url 'makeappointments' %}')
+        </script>
+    {% endifequal%}
+ <script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+
+</html>

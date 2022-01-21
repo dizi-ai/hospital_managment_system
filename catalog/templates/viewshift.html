@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'reception_nav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <h2 class="text-center">Назначенные дежурства</h2>
+                {% for shift in future_shifts %}
+                    <h6 class="text-center">{{ shift.worker }}: c {{ shift.date_beg }} до {{ shift.date_end }} </h6>
+                {% endfor %}
+                <h2 class="text-center">Прошедшие дежурства</h2>
+                {% for shift in past_shifts %}
+                    <h6 class="text-center">{{ shift.worker }}: c {{ shift.date_beg }} до {{ shift.date_end }} </h6>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>

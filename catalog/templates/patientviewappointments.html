@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'patient_nav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <h2 class="text-center">Запись на обследования</h2>
+                <div class="text-center" role="tablist" id="accordion-1">
+                    {% for i in upcomming_appointments %}
+                    <ul class = "collapsible popout text-center" data-collapsible = "accordion">
+                        <li class="card">
+                            <div class = "card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i>  {{ i.patientid }} прием у {{ i.doctorid }} {{i.appointmentdate}}</a></h5>
+                            </div>
+                            <div class = "card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                     <tr>
+                                        <td>Врач:</td>
+                                        <td>{{i.doctorid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Пациент:</td>
+                                        <td>{{i.patientid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата:</td>
+                                        <td>{{i.appointmentdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Время:</td>
+                                        <td>{{i.appointmenttime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Симптомы:</td>
+                                        <td>{{i.symptoms}}</td>
+                                    </tr> 
+                                    <tr>
+                                        <td>Удалить запись на прием:</td>
+                                        <td><a href="{% url 'patient_delete_appointment' i.id %}" onclick="return confirm('Вы действительно хотите удалить запись?')" class="btn btn-danger">Delete</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <h2 class="text-center">Предыдущие записи</h2>
+                <div class="text-center" role="tablist" id="accordion-2">
+                    {% for j in previous_appointments %}
+                    <ul class = "collapsible popout text-center" data-collapsible = "accordion">
+                        <li class="card">
+                            <div class = "card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i>  {{ j.patientid }} прием у {{ j.doctorid }} {{j.appointmentdate}}</a></h5>
+                            </div>
+                            <div class = "card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                     <tr>
+                                        <td>Врач:</td>
+                                        <td>{{j.doctorid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Пациент:</td>
+                                        <td>{{j.patientid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата:</td>
+                                        <td>{{j.appointmentdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Время:</td>
+                                        <td>{{j.appointmenttime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Симптомы:</td>
+                                        <td>{{j.symptoms}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-top-wrapper"><span class="scroll-top-inner"><i class="fa fa-arrow-circle-up"></i></span></div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+
+</html>

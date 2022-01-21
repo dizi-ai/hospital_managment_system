@@ -1,0 +1,4 @@
+admin admin
+d@bk.ru 123
+p@bk.ru 123
+p1@bk.ru 123

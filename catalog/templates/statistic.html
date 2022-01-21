@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'doctor_sidenav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <h2 class="text-center">Статистика</h2>
+                Свободных комнат: {{ rooms_free }}
+
+            </div>
+             <div class="col-sm-9 input-column">
+                    <h4>Выберите дату  для фильтра</h4>
+                    <table>
+                        <form method="post">
+                                {% csrf_token %}
+                            <tr>
+<td>
+                                <div class="form-row form-group">
+                                    <div class="col-sm-6 label-column">
+                                        <label class="col-form-label" for="repeat-pawssword-input-field">Дата начала периода:</label>
+                                    </div>
+                                    <div class="col-sm-9 input-column">
+                                       <input class="form-control" type="date" name="dateb" value="None">
+                                    </div>
+                                </div>
+</td>
+<td>
+                                <div class="form-row form-group">
+                                    <div class="col-sm-6 label-column">
+                                        <label class="col-form-label" for="repeat-pawssword-input-field">Дата конца периода:</label>
+                                    </div>
+                                    <div class="col-sm-9 input-column">
+                                       <input class="form-control" type="date" name="datee" value="None">
+                                    </div>
+                                </div>
+</td>
+ <td>
+                                    <input type="submit" class="btn btn-danger "value="Применить фильтр"></td>
+                                </td>
+
+</tr>
+</form>
+</table>
+{% for i in stats %}
+<h5>{{i}}</h5>
+{% endfor  %}
+                </div>
+
+        </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>

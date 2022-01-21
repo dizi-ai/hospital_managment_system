@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'doctor_sidenav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <div class="col-sm-4 input-column">
+                    <h4>Выберите пациента для фильтра</h4>
+                    <table>
+                        <form method="get">
+                            <tr>
+                                <td>
+                                    <select class="form-control" name="idpat">
+                                        <optgroup label="Выберите">
+                                            <option value="не выбрано" selected=""> Не выбрано</option>
+                                            {% for id in patient_ids %}
+                                            <option value="{{id.id}}" selected="">{{ id.id }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" class="btn btn-danger "value="Применить фильтр"></td>
+                                </td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+                <h2 class="text-center">Результаты приемов</h2>
+                <div class="text-center" role="tablist" id="accordion-1">
+                    {% for i in results %}
+                    <ul class = "collapsible popout text-center" data-collapsible = "accordion">
+                        <li class="card">
+                            <div class = "card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i>  {{ i.appointment.patientid }} на приеме у {{ i.appointment.doctorid }} {{i.appointment.appointmentdate}}</a></h5>
+                            </div>
+                            <div class = "card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                    <tr>
+                                        <td>Врач:</td>
+                                        <td>{{i.appointment.doctorid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Пациент:</td>
+                                        <td>{{i.appointment.patientid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Дата:</td>
+                                        <td>{{i.appointment.appointmentdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Время:</td>
+                                        <td>{{i.appointment.appointmenttime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Симптомы:</td>
+                                        <td>{{i.appointment.symptoms}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Вывод врача о болезни:</td>
+                                        <td>{{ i.disease.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Назначенная процедура:</td>
+                                        <td>{{ i.prescription.pres }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>id пациента:</td>
+                                        <td>{{i.appointment.patientid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Диагноз вынесен:</td>
+                                        <td>{{ i.date }} {{ i.time }}</td>
+                                    </tr>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                    <tr>
+                                        <input type="hidden" value="{{i.id}}" name="idofappres">
+                                        <td>
+                                            <div class="form-row form-group">
+                                                <div class="col-sm-4 label-column">
+                                                    <label class="col-form-label" for="repeat-pawssword-input-field">Дата</label>
+                                                </div>
+                                                <div class="col-sm-6 input-column">
+                                                    <input class="form-control" type="date" name="date_beg" required="">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" name="roomid">
+                                                <optgroup label="Выберите">
+                                                    <option value="не выбрано" selected=""> Не выбрано</option>
+                                                    {% for room in room_ids %}
+                                                        <option value="{{room.id}}" selected="">{{ room.rtype }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </td>
+                                        <td><input type="submit" class="btn btn-danger "value="Отправить лежать в больнице"></td>
+                                    </tr>
+                                    </form>
+                                    <!--
+                                    <tr>
+                                        <td>:</td>
+                                        <td>{% csrf_token %}
+                                            <textarea class="form-control" name="prescription"></textarea>
+                                        </td>
+
+                                        </form>
+                                    </tr>
+                                    -->
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>

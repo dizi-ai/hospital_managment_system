@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+    <div id="wrapper">
+        {% include 'doctor_sidenav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <div class="col-sm-6 input-column">
+                    <h4>Выберите работника для фильтра</h4>
+                    <table>
+                        <tr>
+                            <form method="get">
+                                <td>
+                                    {% csrf_token %}
+                                    <select class="form-control" name="idres">
+                                        <optgroup label="Выберите id работника">
+                                            <option value="не выбрано" selected=""> Не выбрано</option>
+                                            {% for id in recs %}
+                                                <option value="{{id.id}}" selected="">{{ id.id }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" class="btn btn-danger "value="Применить фильтр">
+                                </td>
+                            </form>
+                        </tr>
+                        <tr>
+                        <form method="post">
+                            <td>
+                                {% csrf_token %}
+                                <div class="col-sm-6 label-column">
+                                    <label class="col-form-label" for="repeat-pawssword-input-field">id</label>
+                                </div>
+                                <select class="form-control" name="idres">
+                                    <optgroup label="Выберите">
+                                        <option value="не выбрано" selected=""> Не выбрано</option>
+                                        {% for id in recs %}
+                                            <option value="{{id.id}}" selected="">{{ id.id }} {{ id.name }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="form-row form-group">
+                                    <div class="col-sm-6 label-column">
+                                        <label class="col-form-label" for="repeat-pawssword-input-field">Дата:</label>
+                                    </div>
+                                    <div class="col-sm-9 input-column">
+                                       <input class="form-control" type="date" name="date" required="">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="submit" class="btn btn-danger "value="Назначить дежурство">
+                            </td>
+                        </form>
+
+                        </tr>
+                    </table>
+                </div>
+                <h2 class="text-center">Назначенные дежурства</h2>
+            {% for i in receps %}
+                <h6 class="text-center">{{ i.worker }} {{ i.date_beg }} {{ i.date_end }} </h6>
+            {% endfor %}
+
+            </div>
+        </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>

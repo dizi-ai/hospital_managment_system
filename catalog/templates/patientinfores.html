@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include 'include.html' %}
+    {% load static %}
+</head>
+
+<body>
+ <div id="wrapper">
+        {% include 'reception_nav.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+                <div class="col-sm-4 input-column">
+                    <h4>Выберите пациента для фильтра</h4>
+                    <table>
+                        <form method="post">
+                                {% csrf_token %}
+                            <tr>
+                                <td>
+                                    <select class="form-control" name="idpat">
+                                        <optgroup label="Выберите">
+                                            <option value="не выбрано" selected=""> Не выбрано</option>
+                                            {% for id in pats %}
+                                            <option value="{{id.id}}" selected="">{{ id.id }} {{ id.name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="submit" class="btn btn-danger "value="Применить фильтр"></td>
+                                </td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+                <h2 class="text-center">Результаты приемов</h2>
+                <div class="text-center" role="tablist" id="accordion-1">
+                    {% for i in results %}
+                    <ul class = "collapsible popout text-center" data-collapsible = "accordion">
+                        <li class="card">
+                            <div class = "card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i> Дата приема: {{ i.appointment.appointmentdate }}</a></h5>
+                            </div>
+                            <div class = "card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                    <tr>
+                                        <td>Врач:</td>
+                                        <td>{{i.appointment.doctorid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Пациент:</td>
+                                        <td>{{i.appointment.patientid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Симптомы:</td>
+                                        <td>{{i.appointment.symptoms}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Вывод врача о болезни</td>
+                                        <td>{{ i.disease.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Назначенная процедура</td>
+                                        <td>{{ i.prescription.pres }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>id пациента:</td>
+                                        <td>{{i.appointment.patientid.id}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+<script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+<script src="{% static 'js/bs-init.js' %}"></script>
+<script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>

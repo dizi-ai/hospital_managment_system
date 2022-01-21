@@ -1,0 +1,25 @@
+{% load static %}
+
+{% ifequal error "no" %}
+    <!--
+    {% ifequal page "doctor" %}
+    <script type="text/javascript">
+        window.location = ('{% url 'home' %}')
+    </script>
+    {% endifequal %}
+    {% ifequal page "reception" %}
+    <script type="text/javascript">
+        window.location = ('{% url 'home' %}')
+    </script>
+    {% endifequal %}-->
+    <script type="text/javascript">
+        window.location = ('{% url 'home' %}')
+    </script>
+{% endifequal%}
+
+{% ifequal error "yes" %}
+<script type="text/javascript">
+    alert('ОШибкА!.')
+    window.location=('{% url 'loginpage' %}')
+</script>
+{% endifequal%}
